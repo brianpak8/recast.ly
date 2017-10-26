@@ -1,11 +1,12 @@
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { currentVideo: '' };
+    this.state = { currentVideo: this.props.videos[0] };
     this.handleClick = this.handleClick.bind(this);
   }
   
   render() {
+    console.log('render');
     return (
       <div>
         <nav className="navbar">
@@ -15,7 +16,7 @@ class App extends React.Component {
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <VideoPlayer video={this.props.videos[0]}/>
+            <VideoPlayer video={this.state.currentVideo}/>
           </div>
           <div className="col-md-5">
             <VideoList videos={this.props.videos} handleClick = {this.handleClick}/>
@@ -25,8 +26,9 @@ class App extends React.Component {
     );
   }
   
-  handleClick (e) {
-    this.setState({currentVideo: e});
+  handleClick (videoFromTitleClick) {
+    //alert('wooot');
+    this.setState({currentVideo: videoFromTitleClick});
   }
   
 }
@@ -41,9 +43,7 @@ window.App = App;
 
 
 // TESTS NOT PASSED
-// should be a stateful class component
-// should render a single VideoPlayer component
-// should render a single VideoList component
+
 //should update the video player when a video entry's title is clicked
 
 
