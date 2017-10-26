@@ -6,15 +6,15 @@ class App extends React.Component {
       currentVideos: this.props.videos
     };
     this.handleClick = this.handleClick.bind(this);
+    this.search = this.search.bind(this);
   }
   
   render() {
-    console.log('render');
     return (
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <Search />
+            <Search search={this.search}/>
           </div>
         </nav>
         <div className="row">
@@ -51,7 +51,6 @@ class App extends React.Component {
     // search youtube
     window.searchYouTube(options, function (response) { 
       // take results and populate the page
-      console.log('!!!!!!!!!!!', response);
     
       // set the state current video to equal first item in response array
       context.setState( {currentVideo: response[0]});
@@ -59,7 +58,6 @@ class App extends React.Component {
       // update the list with 5 youtube videos (inlcluding the new player video)
       context.setState( {currentVideos: response });
       
-      console.log('xoxoxoxox', context.state.currentVideos);
       
     
     });
@@ -69,7 +67,19 @@ class App extends React.Component {
   
   // handle search query events
   search (queryFromForm) {
-    
+    var options = {
+      'maxResults': 5,
+      'key': window.YOUTUBE_API_KEY,
+      'query': queryFromForm,
+      'type': 'video',
+      'part': 'snippet'
+    };
+    var context = this;
+    console.log('SEARCH is working', queryFromForm);
+    window.searchYouTube(options, function(response) {
+      context.setState({currentVideo: response[0]});
+      context.setState( {currentVideos: response });
+    });
     
   }
   

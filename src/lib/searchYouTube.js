@@ -11,7 +11,6 @@ var searchYouTube = (options, callback) => {
       'part': 'snippet'
     },
     success: function(data) {
-      console.log('success', data);
       callback(data.items);
     },
     
