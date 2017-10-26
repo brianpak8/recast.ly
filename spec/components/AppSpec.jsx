@@ -9,11 +9,12 @@ describe('App', function() {
   var app;
 
   beforeEach(function() {
+    debugger;
     app = renderIntoDocument(
       <App searchYouTube={() => {}}/>
     );
   });
-
+  
   it('should be a stateful class component', function() {
     expect(React.Component.isPrototypeOf(App)).to.be.true;
   });
