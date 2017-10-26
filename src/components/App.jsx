@@ -1,7 +1,10 @@
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { currentVideo: this.props.videos[0] };
+    this.state = { 
+      currentVideo: this.props.videos[0],
+      currentVideos: this.props.videos
+    };
     this.handleClick = this.handleClick.bind(this);
   }
   
@@ -19,7 +22,7 @@ class App extends React.Component {
             <VideoPlayer video={this.state.currentVideo}/>
           </div>
           <div className="col-md-5">
-            <VideoList videos={this.props.videos} handleClick = {this.handleClick}/>
+            <VideoList videos={this.state.currentVideos} handleClick = {this.handleClick}/>
           </div>
         </div>
       </div>
@@ -39,29 +42,27 @@ class App extends React.Component {
   componentDidMount() {
     var options = {
       'maxResults': 5,
-      'key': YOUTUBE_API_KEY,
-      'q': 'neon cats',
+      'key': window.YOUTUBE_API_KEY,
+      'query': 'killer whale',
       'type': 'video',
       'part': 'snippet'
     };
     var context = this;
     // search youtube
-    searchYouTube(options, function (response) { 
+    window.searchYouTube(options, function (response) { 
       // take results and populate the page
+      console.log('!!!!!!!!!!!', response);
     
       // set the state current video to equal first item in response array
-      context.setState( {currentVideo: response.items[0]});
+      context.setState( {currentVideo: response[0]});
       
       // update the list with 5 youtube videos (inlcluding the new player video)
-      context.props.videos = response.items;
-    
-    
+      context.setState( {currentVideos: response });
+      
+      console.log('xoxoxoxox', context.state.currentVideos);
+      
     
     });
-    
-   
-    
-    
   }
 
 
