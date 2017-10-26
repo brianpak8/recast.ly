@@ -26,6 +26,16 @@ class App extends React.Component {
     );
   }
   
+  // handle clicks on video titles and render then to the player
+  handleClick (videoFromTitleClick) {
+    //alert('wooot');
+    this.setState({currentVideo: videoFromTitleClick});
+  }
+  
+  
+  // load data from a remote endpoint (youtube), 
+  //   create a default list of options for initialization of videos
+  //   instatiate a network request
   componentDidMount() {
     var options = {
       'maxResults': 5,
@@ -34,14 +44,29 @@ class App extends React.Component {
       'type': 'video',
       'part': 'snippet'
     };
-    searchYouTube(options, callback);
+    var context = this;
+    // search youtube
+    searchYouTube(options, function (response) { 
+      // take results and populate the page
+    
+      // set the state current video to equal first item in response array
+      context.setState( {currentVideo: response.items[0]});
+      
+      // update the list with 5 youtube videos (inlcluding the new player video)
+      context.props.videos = response.items;
+    
+    
+    
+    });
+    
+   
+    
+    
   }
+
+
   
-  handleClick (videoFromTitleClick) {
-    //alert('wooot');
-    this.setState({currentVideo: videoFromTitleClick});
-  }
-  
+  // handle search query events
   search (queryFromForm) {
     
     
