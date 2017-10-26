@@ -2,18 +2,24 @@ var searchYouTube = (options, callback) => {
   $.ajax({
     
     url: 'https://www.googleapis.com/youtube/v3/search',
-    method: 'GET',
+    type: 'GET',
     data: {
-      maxResults: options.max,
-      key: options.key,
-      q: options.query,
-      type: options.type
+      'maxResults': options.max,
+      'key': options.key,
+      'q': options.query,
+      'type': 'video',
+      'part': 'snippet'
     },
-    done: function () {
-      console.log('success');
+    success: function(data) {
+      console.log('success', data);
+      callback(data.items);
     },
-    fail: function() {
-      console.log('failure');
+    
+    // done: function () {
+    //   console.log('success');
+    // },
+    error: function(data) {
+      console.log('failure', data);
     }
     
     

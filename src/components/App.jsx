@@ -26,9 +26,25 @@ class App extends React.Component {
     );
   }
   
+  componentDidMount() {
+    var options = {
+      'maxResults': 5,
+      'key': YOUTUBE_API_KEY,
+      'q': 'neon cats',
+      'type': 'video',
+      'part': 'snippet'
+    };
+    searchYouTube(options, callback);
+  }
+  
   handleClick (videoFromTitleClick) {
     //alert('wooot');
     this.setState({currentVideo: videoFromTitleClick});
+  }
+  
+  search (queryFromForm) {
+    
+    
   }
   
 }
