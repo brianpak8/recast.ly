@@ -7,6 +7,7 @@ class App extends React.Component {
     };
     this.handleClick = this.handleClick.bind(this);
     this.search = this.search.bind(this);
+    this.debouncedSearch = _.debounce(this.search, 500).bind(this);
   }
   
   render() {
@@ -14,7 +15,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <Search search={this.search}/>
+            <Search search={this.debouncedSearch}/>
           </div>
         </nav>
         <div className="row">
@@ -50,8 +51,7 @@ class App extends React.Component {
     var context = this;
     // search youtube
     window.searchYouTube(options, function (response) { 
-      // take results and populate the page
-    
+
       // set the state current video to equal first item in response array
       context.setState( {currentVideo: response[0]});
       
@@ -83,32 +83,12 @@ class App extends React.Component {
     
   }
   
+  
+  
 }
 // In the ES6 spec, files are "modules" and do not share a top-level scope
 // `var` declarations will only exist globally where explicitly defined
 window.App = App;
-
-
-
-// listen for click on the following...
-// '.video-player-details h3'
-
-
-// TESTS NOT PASSED
-
-//should update the video player when a video entry's title is clicked
-
-
-// access videos array
-
-// make ajax calls
-
-// create a props collection
-
-// pass props to the correct views
-
-// should have event listeners
-
 
 
 
